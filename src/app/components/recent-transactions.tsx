@@ -16,16 +16,23 @@ interface Transaction {
 
 interface RecentTransactionsProps {
   userId: string
+  year?: number
+  month?: number
 }
 
-export function RecentTransactions({ userId }: RecentTransactionsProps) {
+export function RecentTransactions({ userId, year, month }: RecentTransactionsProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await fetch(`/api/users/${userId}/transactions`)
+        let url = `/api/users/${userId}/transactions`
+        if (year && month) {
+          url += `?year=${year}&month=${month}`
+        }
+        
+        const response = await fetch(url)
         if (response.ok) {
           const data = await response.json()
           setTransactions(data.slice(0, 5)) // Show only recent 5
@@ -38,7 +45,7 @@ export function RecentTransactions({ userId }: RecentTransactionsProps) {
     }
 
     fetchTransactions()
-  }, [userId])
+  }, [userId, year, month])
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-US", {

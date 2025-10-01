@@ -1,14 +1,32 @@
-import { auth } from "@clerk/nextjs/server"
+"use client"
+
+import { useState } from "react"
+import { useUser } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
 import { SummaryCards } from "@/app/components/summary-cards"
 import { RecentTransactions } from "@/app/components/recent-transactions"
 import { AddTransactionButton } from "@/app/components/add-transaction-button"
+import { MonthSelector } from "@/app/components/month-selector"
 
-export default async function DashboardPage() {
-  const { userId } = await auth()
+export default function DashboardPage() {
+  const { user, isLoaded } = useUser()
+  
+  // Get current date
+  const now = new Date()
+  const [currentYear, setCurrentYear] = useState(now.getFullYear())
+  const [currentMonth, setCurrentMonth] = useState(now.getMonth() + 1)
 
-  if (!userId) {
+  if (!isLoaded) {
+    return <div>Loading...</div>
+  }
+
+  if (!user) {
     redirect("/sign-in")
+  }
+
+  const handlePeriodChange = (year: number, month: number) => {
+    setCurrentYear(year)
+    setCurrentMonth(month)
   }
 
   return (
@@ -21,11 +39,29 @@ export default async function DashboardPage() {
         </div>
         <AddTransactionButton />
       </div>
+
+      {/* Month Selector */}
+      <MonthSelector 
+        userId={user.id} 
+        onPeriodChange={handlePeriodChange}
+        currentYear={currentYear}
+        currentMonth={currentMonth}
+      />
+      
       {/* Summary Cards */}
-      <SummaryCards userId={userId} />
+      <SummaryCards 
+        userId={user.id} 
+        year={currentYear} 
+        month={currentMonth} 
+      />
+      
       {/* Recent Transactions */}
       <div className="mt-8">
-        <RecentTransactions userId={userId} />
+        <RecentTransactions 
+          userId={user.id} 
+          year={currentYear} 
+          month={currentMonth} 
+        />
       </div>
     </div>
   )
