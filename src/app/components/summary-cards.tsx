@@ -81,10 +81,10 @@ export function SummaryCards({ userId, year, month }: SummaryCardsProps) {
       {/* Period Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+          <h2 className="text-xl font-semibold text-gray-900">
             Financial Summary
           </h2>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-gray-600">
             {summary.period || "Current Month"}
           </p>
         </div>
@@ -92,41 +92,41 @@ export function SummaryCards({ userId, year, month }: SummaryCardsProps) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Balance Card */}
-        <Card className="rounded-2xl border-0 shadow-sm bg-white dark:bg-gray-900 border-l-4 border-l-blue-500">
+        <Card className="rounded-2xl border-0 shadow-sm bg-white  border-l-4 border-l-blue-500">
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Balance</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600 ">Total Balance</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">
+            <div className="text-2xl sm:text-3xl font-bold text-gray-900 ">
               {formatCurrency(summary.balance)}
             </div>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Current month balance</p>
+            <p className="text-xs text-gray-500  mt-1">Current month balance</p>
           </CardContent>
         </Card>
 
         {/* Income Card */}
-        <Card className="rounded-2xl border-0 shadow-sm bg-white dark:bg-gray-900 border-l-4 border-l-green-500">
+        <Card className="rounded-2xl border-0 shadow-sm bg-white  border-l-4 border-l-green-500">
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Income</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600 ">Total Income</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">
+            <div className="text-2xl sm:text-3xl font-bold text-gray-900 ">
               {formatCurrency(summary.income)}
             </div>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Money earned this month</p>
+            <p className="text-xs text-gray-500  mt-1">Money earned this month</p>
           </CardContent>
         </Card>
 
         {/* Expenses Card */}
-        <Card className="rounded-2xl border-0 shadow-sm bg-white dark:bg-gray-900 border-l-4 border-l-red-500 sm:col-span-2 lg:col-span-1">
+        <Card className="rounded-2xl border-0 shadow-sm bg-white  border-l-4 border-l-red-500 sm:col-span-2 lg:col-span-1">
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Expenses</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600 ">Total Expenses</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">
+            <div className="text-2xl sm:text-3xl font-bold text-gray-900 ">
               {formatCurrency(summary.expenses)}
             </div>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Money spent this month</p>
+            <p className="text-xs text-gray-500  mt-1">Money spent this month</p>
           </CardContent>
         </Card>
       </div>
